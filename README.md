@@ -1,3 +1,4 @@
+PREVIEW - https://galaxy-control.vercel.app/
 GalaxyControl: A Futuristic Space Mission Control Dashboard
 GalaxyControl is an advanced, interactive, and visually dynamic web application designed to simulate a futuristic space mission control center. Built entirely with core web technologies (HTML, CSS, and vanilla JavaScript), it offers an immersive experience reminiscent of real-world space agencies like NASA or SpaceX.
 

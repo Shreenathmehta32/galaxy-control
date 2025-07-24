@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CelestiaControl Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen bg-gray-900 text-white font-inter p-4 flex flex-col">
+
+    <!-- Home Page (Initial Landing) -->
+    <div id="home-page-container" class="home-page-container">
+        <h1 class="text-6xl font-bold text-blue-400 drop-shadow-lg mb-8 glowing-text">CelestiaControl</h1>
+        <p class="text-xl text-gray-300 mb-12">Your command center for the cosmos.</p>
+        <button id="enter-website-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-2xl transition duration-300 ease-in-out glowing-border">
+            Enter Mission Control
+        </button>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="p-6">
+            <h3 class="text-xl font-bold text-blue-400 mb-4">Navigation / View Modes</h3>
+            <ul class="space-y-3 text-gray-300">
+                <li><a href="#" id="nav-home" class="block p-2 rounded-md hover:bg-gray-700 transition-colors duration-200">Home</a></li>
+                <li><a href="https://plus.nasa.gov/" target="_blank" class="block p-2 rounded-md hover:bg-gray-700 transition-colors duration-200">NASA</a></li>
+                <li><a href="#" id="nav-satellite" class="block p-2 rounded-md hover:bg-gray-700 transition-colors duration-200">Satellite View</a></li>
+                <li><a href="#" id="nav-iss" class="block p-2 rounded-md hover:bg-gray-700 transition-colors duration-200">ISS Tracker</a></li>
+                <li><a href="#" id="nav-mars" class="block p-2 rounded-md hover:bg-gray-700 transition-colors duration-200">Mars Weather</a></li>
+                <li><a href="#" id="nav-asteroid" class="block p-2 rounded-md hover:bg-gray-700 transition-colors duration-200">Asteroid Alerts</a></li>
+                <li><a href="#" id="nav-moon" class="block p-2 rounded-md hover:bg-gray-700 transition-colors duration-200">Live View of Moon</a></li>
+                <li><a href="https://plus.nasa.gov/video/cosmic-dawn-the-untold-story-of-the-james-webb-space-telescope/#fullscreen-player" target="_blank" class="block p-2 rounded-md hover:bg-gray-700 transition-colors duration-200">Cosmic Dawn: The Untold Story of the James Webb Space Telescope</a></li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-blue-400 mb-4 mt-8">About Us</h3>
+            <div class="space-y-4 text-gray-300">
+                <div class="glass-panel p-4 rounded-lg">
+                    <h4 class="font-semibold text-lg text-teal-300">Vishakha Gorani</h4>
+                    <p class="text-sm"><a href="https://www.linkedin.com/in/vishakha-gorani-838a61323/" target="_blank" class="text-blue-300 hover:underline">LinkedIn Profile</a></p>
+                </div>
+                <div class="glass-panel p-4 rounded-lg">
+                    <h4 class="font-semibold text-lg text-purple-300">Ved Dandotia</h4>
+                    <p class="text-sm"><a href="https://www.linkedin.com/in/ved-dandotia-b069a329/" target="_blank" class="text-blue-300 hover:underline">LinkedIn Profile</a></p>
+                </div>
+                <div class="glass-panel p-4 rounded-lg">
+                    <h4 class="font-semibold text-lg text-yellow-300">Shreenath Mehta</h4>
+                    <p class="text-sm"><a href="https://www.linkedin.com/in/shreenath-mehta-b12880255/" target="_blank" class="text-blue-300 hover:underline">LinkedIn Profile</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- Main Dashboard Content Container (holds all pages) -->
+    <div id="dashboard-container" class="w-full max-w-7xl mx-auto flex flex-col min-h-screen hidden">
+        <!-- Header (remains consistent across pages) -->
+        <header class="flex flex-col sm:flex-row justify-between items-center mb-6 p-4 rounded-xl glass-panel relative">
+            <button id="menu-button" class="menu-icon absolute top-6 left-6 z-10">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <h1 class="text-4xl font-bold text-blue-400 drop-shadow-lg mb-4 sm:mb-0 ml-16">CelestiaControl</h1>
+            <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <div id="ai-hint" class="text-sm text-gray-400 italic text-center sm:text-left"></div>
+                <!-- Current Date Time Display -->
+                <div id="current-datetime" class="text-sm text-gray-300 text-center sm:text-right"></div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" id="theme-switcher" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    <span id="theme-label" class="ml-3 text-sm font-medium text-gray-300">Light Mode</span>
+                </label>
+            </div>
+        </header>
+
+        <!-- Content Area for different pages -->
+        <div id="content-area" class="flex-grow">
+
+            <!-- Home Page View (Full Dashboard) -->
+            <div id="home-page-view" class="page-content">
+                <main class="flex-grow grid grid-cols-1 lg:grid-cols-3 gap-6 main-grid">
+                    <!-- Left Panel: Satellite Telemetry & ISS Orbit -->
+                    <section class="lg:col-span-2 flex flex-col space-y-6">
+                        <div class="glass-panel p-6 flex-grow">
+                            <h2 class="text-2xl font-semibold mb-4 text-blue-300">Orbital Tracking</h2>
+                            <div id="orbit-display" class="relative w-full h-80 bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center">
+                                <!-- SVG for Earth and orbits -->
+                                <svg id="earth-orbit-svg" viewBox="0 0 500 500" class="w-full h-full max-h-full">
+                                    <!-- Earth -->
+                                    <circle cx="250" cy="250" r="80" fill="#007bff" stroke="#0056b3" stroke-width="2" id="earth-sphere"></circle>
+
+                                    <!-- ISS Orbit Path -->
+                                    <path id="iss-orbit-path" d="M 250,250 m -150,0 a 150,150 0 1,0 300,0 a 150,150 0 1,0 -300,0" fill="none" stroke="#00ffff" stroke-width="1.5" stroke-dasharray="5 5"></path>
+                                    <!-- Satellite 1 Orbit Path -->
+                                    <path id="sat1-orbit-path" d="M 250,250 m -180,0 a 180,180 0 1,0 360,0 a 180,180 0 1,0 -360,0" fill="none" stroke="#ff00ff" stroke-width="1.5" stroke-dasharray="3 3"></path>
+                                    <!-- Satellite 2 Orbit Path -->
+                                    <path id="sat2-orbit-path" d="M 250,250 m -120,0 a 120,120 0 1,0 240,0 a 120,120 0 1,0 -240,0" fill="none" stroke="#00ff00" stroke-width="1.5" stroke-dasharray="4 4"></path>
+
+                                    <!-- ISS Icon -->
+                                    <circle id="iss-icon" cx="0" cy="0" r="8" fill="#00ffff" class="orbiting-object" data-name="ISS" data-speed="27600 km/h" data-altitude="420 km"></circle>
+                                    <!-- Satellite 1 Icon -->
+                                    <circle id="sat1-icon" cx="0" cy="0" r="6" fill="#ff00ff" class="orbiting-object" data-name="Starlink-123" data-speed="27000 km/h" data-altitude="550 km"></circle>
+                                    <!-- Satellite 2 Icon -->
+                                    <circle id="sat2-icon" cx="0" cy="0" r="6" fill="#00ff00" class="orbiting-object" data-name="Hubble" data-speed="27300 km/h" data-altitude="540 km"></circle>
+                                </svg>
+                                <div id="orbit-info-box" class="absolute bg-gray-800 bg-opacity-70 p-2 rounded-md text-sm hidden pointer-events-none"></div>
+                            </div>
+                            <div id="telemetry-data" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                <!-- Telemetry cards will be injected here by JS -->
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Right Panel: Mars Weather & Asteroid Threat -->
+                    <section class="flex flex-col space-y-6">
+                        <!-- Mars Weather -->
+                        <div class="glass-panel p-6">
+                            <h2 class="text-2xl font-semibold mb-4 text-orange-300">Mars Weather Report</h2>
+                            <div id="mars-weather-data" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <!-- Mars weather cards will be injected here by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Asteroid Threat Monitoring -->
+                        <div class="glass-panel p-6 flex-grow">
+                            <h2 class="text-2xl font-semibold mb-4 text-red-400">Asteroid Threat Monitoring</h2>
+                            <div id="asteroid-list" class="h-48 overflow-y-auto custom-scrollbar mb-4">
+                                <!-- Asteroid list will be injected here by JS -->
+                            </div>
+                            <div id="asteroid-trajectory" class="relative w-full h-32 bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center">
+                                <svg id="asteroid-svg" viewBox="0 0 300 100" class="w-full h-full max-h-full">
+                                    <!-- Trajectory paths will be injected here by JS -->
+                                </svg>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Bottom Panel: Console Log & Radial Meters -->
+                    <section class="lg:col-span-3 flex flex-col space-y-6">
+                        <div class="glass-panel p-6">
+                            <h2 class="text-2xl font-semibold mb-4 text-green-300">System Console Log</h2>
+                            <div id="console-log" class="h-48 bg-gray-800 p-4 rounded-lg overflow-y-auto custom-scrollbar text-sm text-green-400 font-mono">
+                                <!-- Console messages will be injected here by JS -->
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-6">
+                            <h2 class="text-2xl font-semibold mb-4 text-purple-300">System Metrics</h2>
+                            <div id="radial-meters" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                                <!-- Radial meters will be injected here by JS -->
+                            </div>
+                        </div>
+
+                        <!-- New Fun Fact Section -->
+                        <div class="glass-panel p-6 text-center">
+                            <h2 class="text-2xl font-semibold mb-4 text-yellow-300">Universe Fun Fact!</h2>
+                            <p id="fun-fact-display" class="text-lg text-gray-200 mb-4">Click the button to learn something new!</p>
+                            <button id="new-fact-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out glowing-border">
+                                Get New Fact
+                            </button>
+                        </div>
+                    </section>
+                </main>
+            </div>
+
+            <!-- Satellite View Page -->
+            <div id="satellite-view-page" class="page-content hidden">
+                <section class="lg:col-span-2 flex flex-col space-y-6 w-full">
+                    <div class="glass-panel p-6 flex-grow">
+                        <h2 class="text-2xl font-semibold mb-4 text-blue-300">Satellite View</h2>
+                        <div id="orbit-display-sat-view" class="relative w-full h-80 bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center">
+                            <svg id="earth-orbit-svg-sat-view" viewBox="0 0 500 500" class="w-full h-full max-h-full">
+                                <circle cx="250" cy="250" r="80" fill="#007bff" stroke="#0056b3" stroke-width="2"></circle>
+                                <path id="iss-orbit-path-sat-view" d="M 250,250 m -150,0 a 150,150 0 1,0 300,0 a 150,150 0 1,0 -300,0" fill="none" stroke="#00ffff" stroke-width="1.5" stroke-dasharray="5 5"></path>
+                                <path id="sat1-orbit-path-sat-view" d="M 250,250 m -180,0 a 180,180 0 1,0 360,0 a 180,180 0 1,0 -360,0" fill="none" stroke="#ff00ff" stroke-width="1.5" stroke-dasharray="3 3"></path>
+                                <path id="sat2-orbit-path-sat-view" d="M 250,250 m -120,0 a 120,120 0 1,0 240,0 a 120,120 0 1,0 -240,0" fill="none" stroke="#00ff00" stroke-width="1.5" stroke-dasharray="4 4"></path>
+                                <circle id="iss-icon-sat-view" cx="0" cy="0" r="8" fill="#00ffff" class="orbiting-object" data-name="ISS" data-speed="27600 km/h" data-altitude="420 km"></circle>
+                                <circle id="sat1-icon-sat-view" cx="0" cy="0" r="6" fill="#ff00ff" class="orbiting-object" data-name="Starlink-123" data-speed="27000 km/h" data-altitude="550 km"></circle>
+                                <circle id="sat2-icon-sat-view" cx="0" cy="0" r="6" fill="#00ff00" class="orbiting-object" data-name="Hubble" data-speed="27300 km/h" data-altitude="540 km"></circle>
+                            </svg>
+                            <div id="orbit-info-box-sat-view" class="absolute bg-gray-800 bg-opacity-70 p-2 rounded-md text-sm hidden pointer-events-none"></div>
+                        </div>
+                        <div id="telemetry-data-sat-view" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <!-- Telemetry cards will be injected here by JS -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ISS Tracker Page -->
+            <div id="iss-tracker-page" class="page-content hidden">
+                <section class="lg:col-span-2 flex flex-col space-y-6 w-full">
+                    <div class="glass-panel p-6 flex-grow">
+                        <h2 class="text-2xl font-semibold mb-4 text-blue-300">ISS Tracker</h2>
+                        <div id="orbit-display-iss-view" class="relative w-full h-80 bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center">
+                            <svg id="earth-orbit-svg-iss-view" viewBox="0 0 500 500" class="w-full h-full max-h-full">
+                                <circle cx="250" cy="250" r="80" fill="#007bff" stroke="#0056b3" stroke-width="2"></circle>
+                                <path id="iss-orbit-path-iss-view" d="M 250,250 m -150,0 a 150,150 0 1,0 300,0 a 150,150 0 1,0 -300,0" fill="none" stroke="#00ffff" stroke-width="1.5" stroke-dasharray="5 5"></path>
+                                <path id="sat1-orbit-path-iss-view" d="M 250,250 m -180,0 a 180,180 0 1,0 360,0 a 180,180 0 1,0 -360,0" fill="none" stroke="#ff00ff" stroke-width="1.5" stroke-dasharray="3 3"></path>
+                                <path id="sat2-orbit-path-iss-view" d="M 250,250 m -120,0 a 120,120 0 1,0 240,0 a 120,120 0 1,0 -240,0" fill="none" stroke="#00ff00" stroke-width="1.5" stroke-dasharray="4 4"></path>
+                                <circle id="iss-icon-iss-view" cx="0" cy="0" r="8" fill="#00ffff" class="orbiting-object" data-name="ISS" data-speed="27600 km/h" data-altitude="420 km"></circle>
+                                <circle id="sat1-icon-iss-view" cx="0" cy="0" r="6" fill="#ff00ff" class="orbiting-object" data-name="Starlink-123" data-speed="27000 km/h" data-altitude="550 km"></circle>
+                                <circle id="sat2-icon-iss-view" cx="0" cy="0" r="6" fill="#00ff00" class="orbiting-object" data-name="Hubble" data-speed="27300 km/h" data-altitude="540 km"></circle>
+                            </svg>
+                            <div id="orbit-info-box-iss-view" class="absolute bg-gray-800 bg-opacity-70 p-2 rounded-md text-sm hidden pointer-events-none"></div>
+                        </div>
+                        <div id="telemetry-data-iss-view" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <!-- Telemetry cards will be injected here by JS -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Mars Weather Page -->
+            <div id="mars-weather-page" class="page-content hidden">
+                <section class="flex flex-col space-y-6 w-full">
+                    <div class="glass-panel p-6">
+                        <h2 class="text-2xl font-semibold mb-4 text-orange-300">Mars Weather Report</h2>
+                        <div id="mars-weather-data-page" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Mars weather cards will be injected here by JS -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Asteroid Alerts Page -->
+            <div id="asteroid-alerts-page" class="page-content hidden">
+                <section class="flex flex-col space-y-6 w-full">
+                    <div class="glass-panel p-6 flex-grow">
+                        <h2 class="text-2xl font-semibold mb-4 text-red-400">Asteroid Threat Monitoring</h2>
+                        <div id="asteroid-list-page" class="h-48 overflow-y-auto custom-scrollbar mb-4">
+                            <!-- Asteroid list will be injected here by JS -->
+                        </div>
+                        <div id="asteroid-trajectory-page" class="relative w-full h-32 bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center">
+                            <svg id="asteroid-svg-page" viewBox="0 0 300 100" class="w-full h-full max-h-full">
+                                <!-- Trajectory paths will be injected here by JS -->
+                            </svg>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Moon View Page -->
+            <div id="moon-view-page" class="page-content hidden">
+                <section class="flex flex-col space-y-6 w-full">
+                    <div class="glass-panel p-6 flex-grow text-center">
+                        <h2 class="text-2xl font-semibold mb-4 text-yellow-300">Live View of Moon</h2>
+                        <p class="text-gray-400 mb-4">
+                            Direct embedding of live planetarium data from external websites is restricted due to browser security policies (CORS, X-Frame-Options).
+                            However, you can view the live interactive planetarium by clicking the link below:
+                        </p>
+                        <a href="http://theskylive.com/planetarium?obj=moon" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out glowing-border mb-6">
+                            Open Live Moon Planetarium (External Link)
+                        </a>
+
+                        <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
+                            <div class="w-48 h-48 bg-gray-800 rounded-full flex items-center justify-center overflow-hidden border-2 border-yellow-400 shadow-lg">
+                                <img id="moon-image" src="https://placehold.co/192x192/4a5568/ffffff?text=Moon" alt="Moon" class="w-full h-full object-cover rounded-full">
+                            </div>
+                            <div class="text-left space-y-2">
+                                <p class="text-lg text-gray-200"><span class="font-bold">Phase:</span> <span id="moon-phase">N/A</span></p>
+                                <p class="text-lg text-gray-200"><span class="font-bold">Illumination:</span> <span id="moon-illumination">N/A</span></p>
+                                <p class="text-lg text-gray-200"><span class="font-bold">Distance:</span> <span id="moon-distance">N/A</span></p>
+                                <p class="text-lg text-gray-200"><span class="font-bold">Next Full Moon:</span> <span id="next-full-moon">N/A</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </div> <!-- End of content-area -->
+    </div> <!-- End of dashboard-container -->
+
+    <!-- Chatbot Icon -->
+    <div id="chatbot-icon" class="chatbot-icon">
+        💬
+    </div>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window" class="chatbot-window">
+        <div class="chat-header">
+            <span>CelestiaBot</span>
+            <button class="close-chatbot-btn" id="close-chatbot-btn">&times;</button>
+        </div>
+        <div class="chat-messages custom-scrollbar" id="chat-messages">
+            <div class="chat-message bot">Hello! I'm CelestiaBot. Ask me anything about the universe or space!</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ask a question...">
+            <button id="chat-send-btn" class="chat-send-btn">Send</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

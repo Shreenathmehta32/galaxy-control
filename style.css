@@ -1,0 +1,382 @@
+/* Custom CSS for CelestiaControl */
+body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.glass-panel {
+    background-color: rgba(30, 41, 59, 0.6); /* bg-gray-800 with transparency */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(75, 85, 99, 0.3); /* border-gray-600 with transparency */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 0.75rem; /* rounded-xl */
+    transition: all 0.3s ease-in-out;
+}
+
+.glass-panel:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #2d3748; /* bg-gray-700 */
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #4a5568; /* bg-gray-600 */
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #64748b; /* bg-gray-500 */
+}
+
+/* Glowing effect for elements */
+.glowing-text {
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.7), 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.glowing-border {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.4);
+}
+
+/* Radial Meter CSS */
+.radial-meter {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 0 auto; /* Center the meter */
+}
+
+.radial-meter svg {
+    transform: rotate(-90deg); /* Start from top */
+    display: block; /* Remove extra space below SVG */
+}
+
+.radial-meter circle {
+    fill: none;
+    stroke-width: 10;
+    transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+.radial-meter .meter-bg {
+    stroke: #4a5568; /* bg-gray-600 */
+}
+
+.radial-meter .meter-fill {
+    stroke: #38b2ac; /* teal-400 */
+    stroke-linecap: round;
+}
+
+.radial-meter .meter-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #cbd5e0; /* text-gray-300 */
+}
+
+.radial-meter .meter-label {
+    position: absolute;
+    bottom: -25px; /* Adjust label position */
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #a0aec0; /* text-gray-400 */
+}
+
+/* Orbiting object animation */
+/* Note: Animation is handled via JS for precise path following on SVG */
+
+/* Console log typing effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: currentColor }
+}
+
+.typing-text {
+    overflow: hidden; /* Ensures the text is not visible until typed */
+    white-space: nowrap; /* Keeps the content on a single line */
+    border-right: .15em solid orange; /* The caret */
+    animation:
+        typing 1.5s steps(40, end) forwards, /* Shorter typing duration */
+        blink-caret .75s step-end infinite;
+}
+
+/* Asteroid trajectory animation */
+@keyframes asteroid-move {
+    from {
+        stroke-dashoffset: 0;
+    }
+    to {
+        stroke-dashoffset: var(--path-length);
+    }
+}
+
+.asteroid-path-animated {
+    animation: asteroid-move linear infinite;
+}
+
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0; /* Hidden by default */
+    background-color: rgba(17, 24, 39, 0.9); /* bg-gray-900 with transparency */
+    backdrop-filter: blur(15px);
+    z-index: 1000; /* Above other content */
+    overflow-x: hidden;
+    transition: width 0.3s ease-in-out;
+    padding-top: 64px; /* Space for header */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar.open {
+    width: 280px; /* Open width */
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999; /* Below sidebar, above main content */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.sidebar-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hamburger icon */
+.menu-icon {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001; /* Ensure it's above other elements */
+}
+
+.menu-icon span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #cbd5e0; /* text-gray-300 */
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Home Page styles */
+.home-page-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%); /* Dark gradient background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Ensure it's on top */
+    color: white;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.home-page-container.hidden {
+    opacity: 0;
+    pointer-events: none; /* Disable interactions when hidden */
+}
+
+/* Page content containers */
+.page-content {
+    width: 100%;
+    height: 100%;
+    display: flex; /* Use flex to ensure content fills container */
+    flex-direction: column;
+    gap: 1.5rem; /* Equivalent to gap-6 */
+}
+
+.page-content.hidden {
+    display: none;
+}
+
+/* Chatbot styles */
+.chatbot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #38b2ac; /* teal-400 */
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+}
+
+.chatbot-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.chatbot-window {
+    position: fixed;
+    bottom: 90px; /* Above the icon */
+    right: 20px;
+    width: 350px;
+    height: 450px;
+    background-color: rgba(30, 41, 59, 0.95); /* Darker glass panel */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(75, 85, 99, 0.5);
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.chatbot-window.open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+.chat-header {
+    background-color: rgba(22, 30, 40, 0.8);
+    padding: 1rem;
+    border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #cbd5e0;
+    font-weight: bold;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background-color: rgba(17, 24, 39, 0.7);
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.chat-message {
+    max-width: 80%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    word-wrap: break-word;
+}
+
+.chat-message.user {
+    align-self: flex-end;
+    background-color: #3b82f6; /* blue-500 */
+    color: white;
+}
+
+.chat-message.bot {
+    align-self: flex-start;
+    background-color: #475569; /* slate-600 */
+    color: white;
+}
+
+.chat-input-area {
+    padding: 1rem;
+    border-top: 1px solid rgba(75, 85, 99, 0.3);
+    display: flex;
+    gap: 0.5rem;
+    background-color: rgba(22, 30, 40, 0.8);
+}
+
+.chat-input {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #4a5568;
+    background-color: #1f2937; /* gray-800 */
+    color: white;
+    outline: none;
+}
+
+.chat-send-btn {
+    background-color: #38b2ac; /* teal-400 */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.chat-send-btn:hover {
+    background-color: #319795; /* teal-500 */
+}
+
+.close-chatbot-btn {
+    background: none;
+    border: none;
+    color: #cbd5e0;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Responsive adjustments for chatbot */
+@media (max-width: 768px) {
+    .chatbot-window {
+        width: 90%;
+        height: 70%;
+        bottom: 10px;
+        right: 5%;
+        left: 5%;
+    }
+    .chatbot-icon {
+        bottom: 10px;
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
